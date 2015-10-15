@@ -167,6 +167,13 @@ http://blog.toright.com/wp-content/uploads/2013/03/cors_chrome_2-542x480.png
 
 CORS DOIT etre supporté par votre serveur web (express, hapi, restlet framework, ...) / chiant a coder / plein de regles et spec c'est une spec quoi, pas super clair
 
+#6,5 Stateless
+
+Fait-on une partie sur la gestion des etats?
+
+Bad practice: maintain state => mandatory call order.
+(exceptions: oauth, rate limiter..)
+
 #7 secu / rights / permissions (2min)
 
 utiliser une solution d'authenticiation:
