@@ -1,4 +1,7 @@
-evolution superhero: http://orig00.deviantart.net/6214/f/2011/027/5/e/evolution_of_super_hero_by_artieyoon-d3851ye.jpg
+evolution superhero:
+
+* http://orig00.deviantart.net/6214/f/2011/027/5/e/evolution_of_super_hero_by_artieyoon-d3851ye.jpg
+* https://speakerdeck.com/antoinerichard/creatifs-boostez-votre-productivite?slide=38
 
 # references
 guide octo: http://blog.octo.com/designer-une-api-rest/
@@ -38,7 +41,7 @@ solution: notion de resource + methode
 benefice: standard / affordance
 
 GET /speakers
-POST / speakers => 200
+POST /speakers => 200
 
 GET /speakers/{id}
 PUT /speakers/{id}
