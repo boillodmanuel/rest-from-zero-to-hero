@@ -36,7 +36,7 @@ noterTalks
 
 #1
 
-pb: non utilisation du cache
+pb: non utilisation du cache <= un peu raide pour commencer, ce pb.
 solution: notion de resource + methode
 benefice: standard / affordance
 
@@ -119,7 +119,7 @@ Documenter aussi les codes d'erreur (Deplacer dans une section documentation?)
 PUT /speakers/{id} => 200, 404, 400
 
 gestion des erreurs:
-retourner statut HTTP + body => sinon CURL ne le montre pas!
+retourner statut HTTP + body => sinon CURL ne le montre pas! <= pas le seul argument. + replique "je m'en fous j'utilise postman !"
 
 #4 pagination
 
@@ -136,7 +136,7 @@ Link: <https://api.github.com/user/repos?page=3&per_page=100>; rel="next",
 <https://api.github.com/user/repos?page=50&per_page=100>; rel="last"
 ```
 
-on aime pas car CURL ne le montre pas par defaut
+on aime pas car CURL ne le montre pas par defaut (pas convaincu par l'argument.  change d'outil!)
 
 - dans le contenu
 ```json
