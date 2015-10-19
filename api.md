@@ -9,6 +9,8 @@ On a demandé a la société de service BonDev de realiser l'api REST du devfest
 voici le resultat:
 
 Tout est GET
+Verbes dans l'URI (a.k.a. HTTP as a tunnel)
+
 ```
 listerSpeakers => 200
 infoSpeaker?id=34 => 200
@@ -29,13 +31,17 @@ noterTalks
 }
 ```
 
+On peut faire une parenthèse ici pour parler de ceux qui mettent tout en POST: "plus securisé, you know..."
+
 => Zero
 
 #1
 
-pb: non utilisation du cache
-solution: notion de resource + methode
-benefice: standard / affordance
+Identifier les ressources
+Appliquer des opérations
+
+ici slide sur les verbes
+important de les utiliser a bon escient, de ne pas "tromper" l'utilisateur.
 
 GET /speakers
 POST / speakers => 200
@@ -44,7 +50,7 @@ GET /speakers/{id}
 PUT /speakers/{id}
 DELETE /speakers/{id}
 
-#2 nommage des resources
+#2 suite
 regardons ce que ca donne sur les talks
 
 POST /talks/{id}/noter/5
@@ -53,6 +59,7 @@ pb: 2 verbes
 solution: sous-resources
 
 POST /talks/{id}/notes -d {value: 5}
+
 
 #3 code
 
