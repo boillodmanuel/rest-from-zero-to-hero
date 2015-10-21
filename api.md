@@ -4,7 +4,7 @@ evolution superhero: http://orig00.deviantart.net/6214/f/2011/027/5/e/evolution_
 guide octo: http://blog.octo.com/designer-une-api-rest/
 api hypermedia: http://www.slideshare.net/delirii/api-hypermedia-devoxx-fr
 
-#0 Zero
+# Zero
 On a demandé a la société de service BonDev de realiser l'api REST du devfest
 voici le resultat:
 
@@ -31,7 +31,7 @@ noterTalks
 
 => Zero
 
-#1
+# ressources & verbes
 
 pb: non utilisation du cache
 solution: notion de resource + methode
@@ -44,17 +44,16 @@ GET /speakers/{id}
 PUT /speakers/{id}
 DELETE /speakers/{id}
 
-#2 nommage des resources
-regardons ce que ca donne sur les talks
+[suite] regardons ce que ca donne sur les talks
 
 POST /talks/{id}/noter/5
 
-pb: 2 verbes
+pb: 2 verbes (on ne comprend pas)
 solution: sous-resources
 
 POST /talks/{id}/notes -d {value: 5}
 
-#3 code
+# codes retour
 
 pb: suivre la spec HTTP - voir exemple sur POST
 quel code mettre?
@@ -118,11 +117,15 @@ PUT /speakers/{id} => 200, 404, 400
 gestion des erreurs:
 retourner statut HTTP + body => sinon CURL ne le montre pas!
 
-#4 pagination
+# pagination
 
 2 types
 - liste de taille fixe: pagination par page
 - stream: pagination par elements suivant
+
++ retourner 206: partial content
+aussi filtre / tri / non detaillé
+
 
 ajouter les infos sur les pages (courante, debut, fin, prochaine, ...)
 2 methodes:
@@ -135,7 +138,17 @@ Link: <https://api.github.com/user/repos?page=3&per_page=100>; rel="next",
 
 on aime pas car CURL ne le montre pas par defaut
 
-- dans le contenu
+- dans le contenu. c'est:
+
+# hypermedia level 1
+
+=> utiliser des liens
+
+* next/prev
+* beginning/end
+* ...
+
+
 ```json
 {
   "page": 1,
@@ -150,36 +163,16 @@ on aime pas car CURL ne le montre pas par defaut
   ]
 }
 ```
-+ retourner 206: partial content
 
-aussi filtre / tri / non detaillé
+Exemples :
 
-#5 content negociation 1
-Accept: application/json; application/xml
-si on doit en choisir qu'un: json (compatibilité javascript)
+* HAL: http://phlyrestfully.readthedocs.org/en/latest/halprimer.html#collections
+* JSON-API: http://jsonapi.org/examples/#pagination
+
+Differents formats existent: HAL, JSON-LD, Collections+JSON, Hydra, SIREN, NARWHL, JSON-API...
 
 
-#6 CORS (2min)
-
-on developpe l'appli web
-et mince, ca marche pas!!
-http://blog.toright.com/wp-content/uploads/2013/03/cors_chrome_2-542x480.png
-
-CORS DOIT etre supporté par votre serveur web (express, hapi, restlet framework, ...) / chiant a coder / plein de regles et spec c'est une spec quoi, pas super clair
-
-#7 secu / rights / permissions (2min)
-
-utiliser une solution d'authenticiation:
-- simple (sans date d'expiration)
-  - basic auth
-  - api token
-- avec expiration
-  - oauth2 (pas tous)
-  - json web token
-
-souvent header ou query param
-
-#8 versionning
+# versionning level 1
 
 dans path
 v1/speakers (GET)
@@ -193,9 +186,63 @@ v2/speakers (GET)
 ```json
 {"id": "u-u-i-d"}
 ```
-#9 hypermedia hateoas / content negociation 2 / versionning
 
-call to `/`
+
+# content negociation level 1
+
+bad practice:
+* /speakers/xml
+* /speakers/json
+
+Car:
+* caching (comme d'hab)
+* si je demande /speakers/yaml, comment est géré ce format non supporté ?
+
+Le client demnde un format de representation
+
+Accept: application/json; application/xml; application/yaml
+si on doit en choisir qu'un: json (compatibilité javascript)
+
+Si le serveur ne peut pas fournir au client la representation dans un des format demandé: 406 - not acceptable
+
+Idem pour accept-encoding, accept-charset, accept-language
+Egalement: la réponse doit être auto-descriptive: donner le content-type du contenu, la langue, encoding...
+
+# versionning level 2
+
+content type: (voir video https://apigility.org/ a 1 min 50)
+GET http://example.com/speakers/1" => return application/vnd.speaker.v1+json
+si erreur => return application/vdn.error.v1+json
+
+
+
+# CORS (2min)
+
+on developpe l'appli web
+et mince, ca marche pas!!
+http://blog.toright.com/wp-content/uploads/2013/03/cors_chrome_2-542x480.png
+
+CORS DOIT etre supporté par votre serveur web (express, hapi, restlet framework, ...) / chiant a coder / plein de regles et spec c'est une spec quoi, pas super clair
+
+# gestion des droits level 1
+
+utiliser une solution d'authenticiation:
+- simple (sans date d'expiration)
+  - basic auth
+  - api token
+- avec expiration
+  - oauth2 (pas tous)
+  - json web token
+
+souvent header ou query param
+
+
+# hypermedia level2 (hateoas)
+
+Hypermedia as the engine of application state
+
+* unique (or few) entry point: `/`
+* discover available operations by following the graph
 
 ```json
 {
@@ -224,15 +271,21 @@ call to rel `speakers`: `http://example.com/speakers`
   ]
 }
 ```
+
+Voir exemple en SIREN: https://github.com/kevinswiber/siren#example
+
+
+# gestion des droits level 2 (bonus)
+
 => gestion des droits par le backend / le front end sait l'action "delete" est possible ou non pour la donnée et l'utilisateur
 {"rel":"delete", title:"Delete speaker", "href": "http://example.com/spearkers/1", "method": "DELETE"},
 
+# Versionning level 3
 
-content type: (voir video https://apigility.org/ a 1 min 50)
-GET http://example.com/speakers/1" => return application/vnd.speaker.v1+json
-si erreur => return application/vdn.error.v1+json
+Ajout de transitions hypermedia vers des nouvelles features, tout en conservant les anciennes pour compat.
 
+ex: TODO
 
-#10 You're a Hero
+# You're a Hero
 
 share your swagger or raml
