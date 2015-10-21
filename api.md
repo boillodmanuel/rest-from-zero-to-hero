@@ -1,4 +1,7 @@
-evolution superhero: http://orig00.deviantart.net/6214/f/2011/027/5/e/evolution_of_super_hero_by_artieyoon-d3851ye.jpg
+evolution superhero:
+
+* http://orig00.deviantart.net/6214/f/2011/027/5/e/evolution_of_super_hero_by_artieyoon-d3851ye.jpg
+* https://speakerdeck.com/antoinerichard/creatifs-boostez-votre-productivite?slide=38
 
 # references
 guide octo: http://blog.octo.com/designer-une-api-rest/
@@ -33,12 +36,12 @@ noterTalks
 
 # ressources & verbes
 
-pb: non utilisation du cache
+pb: non utilisation du cache <= un peu raide pour commencer, ce pb.
 solution: notion de resource + methode
 benefice: standard / affordance
 
 GET /speakers
-POST / speakers => 200
+POST /speakers => 200
 
 GET /speakers/{id}
 PUT /speakers/{id}
@@ -115,7 +118,7 @@ Documenter aussi les codes d'erreur (Deplacer dans une section documentation?)
 PUT /speakers/{id} => 200, 404, 400
 
 gestion des erreurs:
-retourner statut HTTP + body => sinon CURL ne le montre pas!
+retourner statut HTTP + body => sinon CURL ne le montre pas! <= pas le seul argument. + replique "je m'en fous j'utilise postman !"
 
 # pagination
 
@@ -136,7 +139,7 @@ Link: <https://api.github.com/user/repos?page=3&per_page=100>; rel="next",
 <https://api.github.com/user/repos?page=50&per_page=100>; rel="last"
 ```
 
-on aime pas car CURL ne le montre pas par defaut
+on aime pas car CURL ne le montre pas par defaut (pas convaincu par l'argument.  change d'outil!)
 
 - dans le contenu. c'est:
 
