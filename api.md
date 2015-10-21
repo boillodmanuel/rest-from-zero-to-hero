@@ -7,6 +7,14 @@ evolution superhero:
 guide octo: http://blog.octo.com/designer-une-api-rest/
 api hypermedia: http://www.slideshare.net/delirii/api-hypermedia-devoxx-fr
 
+
+
+TECH 
+hapi - mongo/ou mock
+
+DEBUT
+-----
+
 # Zero
 On a demandé a la société de service BonDev de realiser l'api REST du devfest
 voici le resultat:
