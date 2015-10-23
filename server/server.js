@@ -2,9 +2,6 @@ var Hapi = require('hapi');
 var Path = require('path');
 var Assets = require('./assets');
 
-// reply.jsonapi( Boom.notFound() );
-// reply.jsonapi( new Error('Something went wrong') );
-
 var server = new Hapi.Server({
   connections: {
     routes: {
