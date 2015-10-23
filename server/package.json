@@ -1,0 +1,28 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "description": "api rest from zero to hero",
+  "main": "server.js",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:boillodmanuel/rest-from-zero-to-hero.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "good": "^6.4.0",
+    "good-console": "^5.1.0",
+    "hapi": "^11.0.2",
+    "hapi-routes": "^2.0.0",
+    "inert": "git@github.com:hapijs/inert.git#478e66c06c19bd9abf5845d2fedb59caaaa68d5e",
+    "isemail": "^1.2.0",
+    "lodash": "^3.10.1",
+    "lout": "^7.2.0",
+    "moment": "^2.10.6",
+    "topo": "^1.1.0",
+    "vision": "^3.0.0"
+  }
+}
