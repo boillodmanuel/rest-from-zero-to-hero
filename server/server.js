@@ -12,7 +12,17 @@ var server = new Hapi.Server({
   }
 });
 
-server.connection({port: 3000});
+server.connection({
+      port: 3000,
+      routes: {
+        cors: true,
+        validate: {
+          options: {
+            abortEarly: false
+          }
+        }
+      }
+    });
 
 server.register(
     [
@@ -35,6 +45,23 @@ server.register(
       require('vision'),
       require('inert'),
       require('lout'),
+      {
+        register: require('hapi-swaggered'),
+        options: {
+          info: {
+            title: 'Devfest Nantes API',
+            description: 'Rest - From zero to hero',
+            version: '1.0'
+          }
+        }
+      },
+      {
+        register: require('hapi-swaggered-ui'),
+        options: {
+          title: 'Example API',
+          path: '/swagger-ui'
+        }
+      },
       Assets
     ], function (err) {
       if (err) {

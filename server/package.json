@@ -17,12 +17,16 @@
     "good-console": "^5.1.0",
     "hapi": "^11.0.2",
     "hapi-routes": "^2.0.0",
+    "hapi-swaggered": "^2.4.1",
+    "hapi-swaggered-ui": "^2.1.1",
     "inert": "git@github.com:hapijs/inert.git#478e66c06c19bd9abf5845d2fedb59caaaa68d5e",
     "isemail": "^1.2.0",
     "lodash": "^3.10.1",
     "lout": "^7.2.0",
+    "lowdb": "^0.10.2",
     "moment": "^2.10.6",
     "topo": "^1.1.0",
+    "underscore-db": "^0.9.1",
     "vision": "^3.0.0"
   }
 }

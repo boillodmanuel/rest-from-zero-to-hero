@@ -1,58 +1,67 @@
+var Path = require('path');
+var low = require('lowdb');
+var db = low(Path.join(__dirname, '../data/db.json'));
+
+var speakers = db('speakers');
+var sessions = db('sessions');
+var categories = db('categories');
+var hours = db('hours');
+
 routes = [
   {
     method: 'GET',
-    path: '/talks',
+    path: '/sessions',
     handler: function (request, reply) {
       reply([{id: "antoine"}, {id: "manu"}]);
     },
     config: {
-      description: 'list talks',
+      description: 'list sessions',
       notes: 'pagination enabled',
-      tags: ['talks']
+      tags: ['sessions']
     }
   },
   {
     method: 'POST',
-    path: '/talks',
+    path: '/sessions',
     handler: function (request, reply) {
       reply([{id: "antoine"}, {id: "manu"}]).code(201);
     },
     config: {
-      description: 'add talks',
-      tags: ['talks']
+      description: 'add sessions',
+      tags: ['sessions']
     }
   },
   {
     method: 'GET',
-    path: '/talks/{id}',
+    path: '/sessions/{id}',
     handler: function (request, reply) {
       reply({id: request.params.id});
     },
     config: {
-      description: 'get speaker by id',
-      tags: ['talks']
+      description: 'get session by id',
+      tags: ['sessions']
     }
   },
   {
     method: 'PUT',
-    path: '/talks/{id}',
+    path: '/sessions/{id}',
     handler: function (request, reply) {
       reply({id: request.params.id});
     },
     config: {
-      description: 'update speaker',
-      tags: ['talks']
+      description: 'update session',
+      tags: ['sessions']
     }
   },
   {
     method: 'DELETE',
-    path: '/talks/{id}',
+    path: '/sessions/{id}',
     handler: function (request, reply) {
       reply({id: request.params.id}).code(204);
     },
     config: {
-      description: 'delete speaker',
-      tags: ['talks']
+      description: 'delete session',
+      tags: ['sessions']
     }
   }
 ];
