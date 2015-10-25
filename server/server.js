@@ -58,7 +58,7 @@ server.register(
         register: require('hapi-swaggered-ui'),
         options: {
           title: 'Example API',
-          path: '/swagger-ui'
+          path: '/docs'
         }
       },
       Assets

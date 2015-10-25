@@ -20,17 +20,16 @@ var speaker =
       }),
       company: Joi.string(),
       about: Joi.string(),
-      socials: Joi.array().items(Joi.object().keys({
-        'class': Joi.string(),
-        link: Joi.string()
-      }), Joi.object().keys({'class': Joi.string(), link: Joi.string()}), Joi.object().keys({
-        'class': Joi.string(),
-        link: Joi.string()
-      }), Joi.object().keys({'class': Joi.string(), link: Joi.string()}))
+      socials: Joi.array().items(
+          Joi.object().keys({
+            'class': Joi.string(),
+            link: Joi.string()
+          })
+      )
     }).meta({className: 'speaker'});
 
-var updateSpeaker = speaker.requiredKeys('firstname', 'lastname');
-var createSpeaker = updateSpeaker.requiredKeys('id');
+var updateSpeaker = speaker.requiredKeys('firstname', 'lastname').meta({className: 'speaker_update'});
+var createSpeaker = updateSpeaker.requiredKeys('id').meta({className: 'speaker_create'});
 
 var session =
     Joi.object().keys({
@@ -48,8 +47,8 @@ var session =
       speakers: Joi.array().items(Joi.string())
     }).meta({className: 'session'});
 
-var updateSession = session.requiredKeys('title');
-var createSession = updateSession.requiredKeys('id');
+var updateSession = session.requiredKeys('title').meta({className: 'session_update'});
+var createSession = updateSession.requiredKeys('id').meta({className: 'session_create'});
 
 var hour = Joi.object().keys({
   hourEnd: Joi.string(),
@@ -57,35 +56,38 @@ var hour = Joi.object().keys({
   id: Joi.string(),
   minEnd: Joi.string(),
   minStart: Joi.string()
-});
+}).meta({className: 'hour'});
 
 var category = Joi.object().keys({
   id: Joi.string(),
   title: Joi.string()
-});
+}).meta({className: 'category'});
 
 var error =
     Joi.object().keys({
       statusCode: Joi.number().integer().required(),
       error: Joi.string().required()
-    });
+    }).meta({className: 'error'});
 
 var validationError =
     Joi.object().keys({
       statusCode: Joi.number().integer().required(),
       error: Joi.string().required(),
       message: Joi.string(),
-      validation: Joi.object().keys({keys: Joi.array().items(Joi.string(), Joi.string()), source: Joi.string()})
-    });
+      validation: Joi.object().keys({
+        keys: Joi.array().items(Joi.string(), Joi.string()),
+        source: Joi.string()
+      }).meta({className: 'validationDetail'})
+    }).meta({className: 'validationError'});
 
-var paginate = function (item) {
+var paginate = function (item, name) {
   return Joi.object().keys({
     items: Joi.array().items(item),
     size: Joi.number().integer(),
     total: Joi.number().integer(),
     offset: Joi.number().integer(),
     limit: Joi.number().integer()
-  });
+  }).meta({className: name});
 };
 
 exports = module.exports = {
@@ -93,15 +95,15 @@ exports = module.exports = {
   speaker: speaker,
   updateSpeaker: updateSpeaker,
   createSpeaker: createSpeaker,
-  speakers: paginate(speaker),
+  speakers: paginate(speaker, 'speakers'),
   session: session,
   updateSession: updateSession,
   createSession: createSession,
-  sessions: paginate(session),
+  sessions: paginate(session, 'sessions'),
   hour: hour,
-  hours: paginate(hour),
+  hours: paginate(hour, 'hours'),
   category: category,
-  categories: paginate(category),
+  categories: paginate(category, 'categories'),
   //error models
   error: error,
   validationError: validationError
