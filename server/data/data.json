@@ -1090,129 +1090,150 @@
       ]
     }
   ],
-  "categories": {
-    "android": "Mobile et Objets Connectés",
-    "web": "Web",
-    "cloud": "Cloud et Big Data",
-    "discovery": "Découverte",
-    "codelab-web": "CodeLab Web",
-    "codelab-cloud": "CodeLab Cloud",
-    "formation": "Formation"
-  },
-  "hours": {
-    "h01": {
+  "categories": [
+    {
+      "id": "android",
+      "title": "Mobile et Objets Connectés"
+    },
+    {
+      "id": "web",
+      "title": "Web"
+    },
+    {
+      "id": "cloud",
+      "title": "Cloud et Big Data"
+    },
+    {
+      "id": "discovery",
+      "title": "Découverte"
+    },
+    {
+      "id": "codelab-web",
+      "title": "CodeLab Web"
+    },
+    {
+      "id": "codelab-cloud",
+      "title": "CodeLab Cloud"
+    },
+    {
+      "id": "formation",
+      "title": "Formation"
+    }
+  ],
+  "hours": [
+    {
       "id": "h01",
       "hourStart": "07",
       "minStart": "30",
       "hourEnd": "08",
       "minEnd": "30"
     },
-    "h02": {
+    {
       "id": "h02",
       "hourStart": "08",
       "minStart": "30",
       "hourEnd": "09",
       "minEnd": "30"
     },
-    "h03": {
+    {
       "id": "h03",
       "hourStart": "09",
       "minStart": "40",
       "hourEnd": "10",
       "minEnd": "30"
     },
-    "h04": {
+    {
       "id": "h04",
       "hourStart": "10",
       "minStart": "40",
       "hourEnd": "11",
       "minEnd": "30"
     },
-    "h05": {
+    {
       "id": "h05",
       "hourStart": "11",
       "minStart": "40",
       "hourEnd": "12",
       "minEnd": "30"
     },
-    "h06": {
+    {
       "id": "h06",
       "hourStart": "12",
       "minStart": "30",
       "hourEnd": "14",
       "minEnd": "00"
     },
-    "h07": {
+    {
       "id": "h07",
       "hourStart": "14",
       "minStart": "00",
       "hourEnd": "14",
       "minEnd": "50"
     },
-    "h08": {
+    {
       "id": "h08",
       "hourStart": "15",
       "minStart": "00",
       "hourEnd": "15",
       "minEnd": "50"
     },
-    "h09": {
+    {
       "id": "h09",
       "hourStart": "15",
       "minStart": "50",
       "hourEnd": "16",
       "minEnd": "40"
     },
-    "h10": {
+    {
       "id": "h10",
       "hourStart": "16",
       "minStart": "40",
       "hourEnd": "17",
       "minEnd": "30"
     },
-    "h11": {
+    {
       "id": "h11",
       "hourStart": "17",
       "minStart": "40",
       "hourEnd": "18",
       "minEnd": "30"
     },
-    "h12": {
+    {
       "id": "h12",
       "hourStart": "18",
       "minStart": "30",
       "hourEnd": "22",
       "minEnd": "30"
     },
-    "h13": {
+    {
       "id": "h13",
       "hourStart": "09",
       "minStart": "40",
       "hourEnd": "11",
       "minEnd": "30"
     },
-    "h14": {
+    {
       "id": "h14",
       "hourStart": "14",
       "minStart": "00",
       "hourEnd": "15",
       "minEnd": "50"
     },
-    "h15": {
+    {
       "id": "h15",
       "hourStart": "16",
       "minStart": "40",
       "hourEnd": "18",
       "minEnd": "30"
     },
-    "h16": {
+    {
       "id": "h16",
       "hourStart": "13",
       "minStart": "30",
       "hourEnd": "17",
       "minEnd": "00"
     }
-  },
+  ],
   "sessions": [
     {
       "id": "s3",

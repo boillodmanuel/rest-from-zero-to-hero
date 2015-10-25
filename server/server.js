@@ -44,7 +44,6 @@ server.register(
       },
       require('vision'),
       require('inert'),
-      require('lout'),
       {
         register: require('hapi-swaggered'),
         options: {
