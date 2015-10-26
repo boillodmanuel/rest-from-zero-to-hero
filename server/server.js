@@ -13,61 +13,69 @@ var server = new Hapi.Server({
 });
 
 server.connection({
-      port: 3000,
-      routes: {
-        cors: true,
-        validate: {
-          options: {
-            abortEarly: false
-          }
-        }
+  port: 3000,
+  routes: {
+    cors: true,
+    validate: {
+      options: {
+        abortEarly: false
       }
-    });
+    }
+  }
+});
 
 server.register(
-    [
-      {
-        register: require('good'),
-        options: {
-          reporters: [{
-            reporter: require('good-console'),
-            events: {
-              response: '*',
-              log: '*'
-            }
-          }]
-        }
-      },
-      {
-        register: require('hapi-routes'),
-        options: {dir: 'routes'}
-      },
-      require('vision'),
-      require('inert'),
-      {
-        register: require('hapi-swaggered'),
-        options: {
-          info: {
-            title: 'Devfest Nantes API',
-            description: 'Rest - From zero to hero',
-            version: '1.0'
+  [
+    {
+      register: require('good'),
+      options: {
+        reporters: [{
+          reporter: require('good-console'),
+          events: {
+            response: '*',
+            log: '*'
           }
-        }
-      },
-      {
-        register: require('hapi-swaggered-ui'),
-        options: {
-          title: 'Example API',
-          path: '/docs'
-        }
-      },
-      Assets
-    ], function (err) {
-      if (err) {
-        throw err; // something bad happened loading the plugin
+        }]
       }
+    },
+    {
+      register: require('hapi-routes'),
+      options: {dir: 'routes'}
+    },
+    require('vision'),
+    require('inert'),
+    {
+      register: require('hapi-swaggered'),
+      options: {
+        info: {
+          title: 'Devfest Nantes API',
+          description: 'Rest - From zero to hero',
+          version: '1.0'
+        }
+      }
+    },
+    {
+      register: require('hapi-swaggered-ui'),
+      options: {
+        title: 'Example API',
+        path: '/docs'
+      }
+    },
+    {
+      register: require('halacious'),
+      options: {
+        mediaTypes: ['application/hal+json'],
+        apiPath: ''
+      }
+    },
+    Assets
+  ], function (err) {
+    if (err) {
+      throw err; // something bad happened loading the plugin
+    }
 
-      server.start(function () {
-        server.log('info', 'Server running at: ' + server.info.uri);
-      });
+    server.start(function () {
+      server.log('info', 'Server running at: ' + server.info.uri);
     });
+  }
+);

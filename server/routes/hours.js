@@ -1,7 +1,6 @@
 var Joi = require('Joi');
 var Boom = require('Boom');
-var Path = require('path');
-var db = require(Path.join(__dirname, '../data/db.js'));
+var db = require('../data/db.js');
 var schemas = require('../data/schemas.js');
 
 routes = [
@@ -39,6 +38,17 @@ routes = [
         status: {
           400: schemas.validationError
         }
+      },
+      plugins: {
+        hal: {
+          api: 'hours',
+          embedded: {
+            hours: {
+              path: 'items',
+              href: './{item.id}'
+            }
+          }
+        }
       }
     }
   },
@@ -46,12 +56,7 @@ routes = [
     method: 'GET',
     path: '/hours/{id}',
     handler: function (request, reply) {
-      var session = db.hours.getById(request.params.id);
-      if (session) {
-        reply(session);
-      } else {
-        reply(Boom.notFound());
-      }
+      reply(db.hours.getById(request.params.id) || Boom.notFound());
     },
     config: {
       description: 'get hour by id',

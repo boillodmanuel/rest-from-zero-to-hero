@@ -1,7 +1,6 @@
 var Joi = require('Joi');
 var Boom = require('Boom');
-var Path = require('path');
-var db = require(Path.join(__dirname, '../data/db.js'));
+var db = require('../data/db.js');
 var schemas = require('../data/schemas.js');
 
 routes = [
@@ -39,6 +38,17 @@ routes = [
         status: {
           400: schemas.validationError
         }
+      },
+      plugins: {
+        hal: {
+          api: 'speakers',
+          embedded: {
+            speakers: {
+              path: 'items',
+              href: './{item.id}'
+            }
+          }
+        }
       }
     }
   },
@@ -65,12 +75,7 @@ routes = [
     method: 'GET',
     path: '/speakers/{id}',
     handler: function (request, reply) {
-      var speaker = db.speakers.getById(request.params.id);
-      if (speaker) {
-        reply(speaker);
-      } else {
-        reply(Boom.notFound());
-      }
+      reply(db.speakers.getById(request.params.id) || Boom.notFound());
     },
     config: {
       description: 'get speaker by id',
@@ -87,12 +92,7 @@ routes = [
     method: 'PUT',
     path: '/speakers/{id}',
     handler: function (request, reply) {
-      var speaker = db.speakers.replaceById(request.params.id, request.payload);
-      if (speaker) {
-        reply(speaker);
-      } else {
-        reply(Boom.notFound());
-      }
+      reply(db.speakers.replaceById(request.params.id, request.payload) || Boom.notFound());
     },
     config: {
       validate: { payload: schemas.updateSpeaker },
@@ -111,12 +111,7 @@ routes = [
     method: 'PATCH',
     path: '/speakers/{id}',
     handler: function (request, reply) {
-      var speaker = db.speakers.updateById(request.params.id, request.payload);
-      if (speaker) {
-        reply(speaker);
-      } else {
-        reply(Boom.notFound());
-      }
+      reply(db.speakers.updateById(request.params.id, request.payload) || Boom.notFound());
     },
     config: {
       validate: { payload: schemas.speaker },
@@ -135,8 +130,7 @@ routes = [
     method: 'DELETE',
     path: '/speakers/{id}',
     handler: function (request, reply) {
-      var speaker = db.speakers.removeById(request.params.id);
-      if (speaker) {
+      if (db.speakers.removeById(request.params.id)) {
         reply().code(204);
       } else {
         reply(Boom.notFound());
