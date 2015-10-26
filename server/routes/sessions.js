@@ -1,7 +1,6 @@
 var Joi = require('Joi');
 var Boom = require('Boom');
-var Path = require('path');
-var db = require(Path.join(__dirname, '../data/db.js'));
+var db = require('../data/db.js');
 var schemas = require('../data/schemas.js');
 
 routes = [
@@ -39,6 +38,17 @@ routes = [
         status: {
           400: schemas.validationError
         }
+      },
+      plugins: {
+        hal: {
+          api: 'sessions',
+          embedded: {
+            sessions: {
+              path: 'items',
+              href: './{item.id}'
+            }
+          }
+        }
       }
     }
   },
@@ -65,12 +75,7 @@ routes = [
     method: 'GET',
     path: '/sessions/{id}',
     handler: function (request, reply) {
-      var session = db.sessions.getById(request.params.id);
-      if (session) {
-        reply(session);
-      } else {
-        reply(Boom.notFound());
-      }
+      reply(db.sessions.getById(request.params.id) || Boom.notFound());
     },
     config: {
       description: 'get session by id',
@@ -80,6 +85,14 @@ routes = [
         status: {
           404: schemas.error
         }
+      },
+      plugins: {
+        hal: {
+          links: {
+            hour: '/hours/{hour}',
+            category: '/categories/{type}'
+          }
+        }
       }
     }
   },
@@ -87,12 +100,7 @@ routes = [
     method: 'PUT',
     path: '/sessions/{id}',
     handler: function (request, reply) {
-      var session = db.sessions.replaceById(request.params.id, request.payload);
-      if (session) {
-        reply(session);
-      } else {
-        reply(Boom.notFound());
-      }
+      reply(db.sessions.replaceById(request.params.id, request.payload) || Boom.notFound());
     },
     config: {
       validate: { payload: schemas.updateSession },
@@ -111,12 +119,7 @@ routes = [
     method: 'PATCH',
     path: '/sessions/{id}',
     handler: function (request, reply) {
-      var session = db.sessions.updateById(request.params.id, request.payload);
-      if (session) {
-        reply(session);
-      } else {
-        reply(Boom.notFound());
-      }
+      reply(db.sessions.updateById(request.params.id, request.payload) || Boom.notFound());
     },
     config: {
       validate: { payload: schemas.session },
@@ -135,8 +138,7 @@ routes = [
     method: 'DELETE',
     path: '/sessions/{id}',
     handler: function (request, reply) {
-      var session = db.sessions.removeById(request.params.id);
-      if (session) {
+      if (db.sessions.removeById(request.params.id)) {
         reply().code(204);
       } else {
         reply(Boom.notFound());
