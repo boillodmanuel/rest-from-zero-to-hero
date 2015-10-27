@@ -1,6 +1,7 @@
 var Joi = require('Joi');
 var Boom = require('Boom');
 var db = require('../data/db.js');
+var Collection = require('../data/collection.js');
 var schemas = require('../data/schemas.js');
 
 routes = [
@@ -11,13 +12,7 @@ routes = [
       var offset = request.query.offset;
       var limit = request.query.limit;
       var items = db.speakers.slice(offset, offset + limit);
-      reply({
-        items: items,
-        size: items.length,
-        total: db.speakers.size(),
-        offset: offset,
-        limit: limit
-      });
+      reply(new Collection(items, offset, limit, db.speakers.size()));
     },
     config: {
       validate: {
@@ -42,6 +37,7 @@ routes = [
       plugins: {
         hal: {
           api: 'speakers',
+          query: '{?offset,limit}',
           embedded: {
             speakers: {
               path: 'items',

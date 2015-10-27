@@ -432,7 +432,7 @@
         "tile_long": "Google Developer Expert"
       },
       "image": "dgageot_360x360.jpg",
-      "company": "",
+      "company": "RETOUR1024",
       "about": "David Gageot est développeur indépendant.<br>Sa passion ? L'écriture de logiciels pointus mais simples.<br>Il participe à des projets Java depuis 1998, comme responsable R&D chez l'éditeur Adesoft, comme expert Java et Scrum Master.<br>Depuis 2010, il a pris le leadership sur le projet open-source Infinitest.",
       "socials": [
         {
@@ -534,7 +534,7 @@
       "firstname": "François-Xavier",
       "lastname": "Rousselot",
       "image": "fxrousselot.jpg",
-      "company": "",
+      "company": "Data Innovation & Machine Learning",
       "about": "François-Xavier Rousselot est Data Innovation and Machine Learning consultant.  He leverages his 4 years of experience in managing Machine Learning and Datascience projects to help executives find the right data opportunities for their international companies. Having both a strong business and technical experience, he has always been able to detect new opportunities, design and successfully implement solutions with the latest technologies.",
       "socials": [
         {
@@ -678,7 +678,7 @@
         "link": "https://developers.google.com/experts/",
         "tile_long": "Google Developer Expert"
       },
-      "company": "",
+      "company": "MethoTIC Conseil",
       "about": "Je suis consultant et formateur, passionné par l'achitecture des applications web, et spécialiste de JavaScript et du framework AngularJS.\nEt Google Developer Expert sur AngularJS depuis 2014.",
       "socials": [
         {
@@ -794,7 +794,7 @@
       "firstname": "Frank",
       "lastname": "Kelly",
       "image": "fkelly.jpg",
-      "company": "",
+      "company": "Analytics SEO",
       "about": "Frank Kelly is a data scientist at Analytics SEO in London.  With a degree from the University of Cambridge, he co-founded MathSight Ltd where he was responsible for the machine learning pipelines and data science.",
       "socials": [
         {
@@ -850,7 +850,7 @@
       "firstname": "Cécilia",
       "lastname": "Bossard",
       "image": "cbossard.png",
-      "company": "",
+      "company": "Timwi",
       "about": "ai un but : aider les équipes à produire des logiciels utiles aux utilisateurs finaux. Pour cela, je les accompagne en intégrant les équipes de développement ou en les assistant dans leur transition agile. Impliquée dans la communauté agile nantaise, je participe également à l'organisation de l'Agile Tour de Nantes. Femme développeuse, je suis également co-fondatrice du groupe <a href='http://nantes-wit.fr/' target='_blank'>Women In Technology à Nantes</a>, dont le but est de promouvoir les femmes dans la technique. Dans ce cadre, je participe également aux initiations à la programmation à destination des enfants avec des initiatives telles que les <a href='http://www.devoxx4kids.org/france/evenements/devoxx4kids-nantes/' target='_blank'>Devoxx4Kids</a> ou les <a href='https://nantescodinggouters.wordpress.com/' target='_blank'>Coding Goûters à Nantes</a>.",
       "socials": [
         {
@@ -868,7 +868,7 @@
       "firstname": "Jean",
       "lastname": "Paliès",
       "image": "jpalies.jpg",
-      "company": "",
+      "company": "CNAMTS",
       "about": "Développeur Java, Angular JS le jour, bidouilleur la nuit. Après quelques années de bricolage et découvertes, j'ai repris les bases de la programmation il y a 15 ans avec Scratch, que je réutilise avec bonheur maintenant dans les <a href='http://www.devoxx4kids.org/france/evenements/devoxx4kids-nantes/' target='_blank'>Devoxx4Kids</a> ou les <a href='https://nantescodinggouters.wordpress.com/' target='_blank'>Coding Goûters à Nantes</a>, dont je suis cofondateur. Je suis aussi membre et confondateur des <a href='http://nantes-wit.fr/' target='_blank'>Women In Technology à Nantes</a>.",
       "socials": [
         {
@@ -888,11 +888,6 @@
           "link": "https://javagile.wordpress.com/"
         }
       ]
-    },
-    {
-      "lastname": "boi",
-      "firstname": "toto",
-      "id": "d"
     }
   ],
   "categories": [
