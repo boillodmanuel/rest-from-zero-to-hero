@@ -6,12 +6,7 @@ var speaker =
       id: Joi.string(),
       firstname: Joi.string(),
       lastname: Joi.string(),
-      topspeaker: Joi.boolean(),
       image: Joi.string(),
-      category: Joi.object().keys({
-        'class': Joi.string(),
-        title: Joi.string()
-      }),
       ribon: Joi.object().keys({
         'class': Joi.string(),
         title: Joi.string(),
