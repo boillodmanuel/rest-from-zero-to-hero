@@ -17,16 +17,11 @@ routes = [
     config: {
       validate: {
         query: {
-          offset: Joi.number().integer().min(0).max(100).default(0),
-          limit: Joi.number().integer().min(1).max(100).default(10)
+          offset: Joi.number().integer().min(0).max(100).default(0).description('pagination starting offset'),
+          limit: Joi.number().integer().min(1).max(100).default(10).description('max items returned')
         }
       },
       description: 'list hours',
-      notes: '<p>This method use pagination.</p>' +
-      '<p>Query parameters:' +
-      '<ul>' +
-      '<li>offset: offset used (default 0)</li>' +
-      '<li>limit: max items returned (default 10)</li></br></p>',
       tags: ['api', 'hours'],
       response: {
         schema: schemas.hours,
@@ -55,6 +50,11 @@ routes = [
       reply(db.hours.getById(request.params.id) || Boom.notFound());
     },
     config: {
+      validate: {
+        params: {
+          id: Joi.string().regex(/^h[0-9]{2}$/).required().description('hour id')
+        }
+      },
       description: 'get hour by id',
       tags: ['api', 'hours'],
       response: {

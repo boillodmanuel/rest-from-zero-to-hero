@@ -17,16 +17,11 @@ routes = [
     config: {
       validate: {
         query: {
-          offset: Joi.number().integer().min(0).max(100).default(0),
-          limit: Joi.number().integer().min(1).max(100).default(10)
+          offset: Joi.number().integer().min(0).max(100).default(0).description('pagination starting offset'),
+          limit: Joi.number().integer().min(1).max(100).default(10).description('max items returned')
         }
       },
       description: 'list speakers',
-      notes: '<p>This method use pagination.</p>' +
-          '<p>Query parameters:' +
-          '<ul>' +
-          '<li>offset: offset used (default 0)</li>' +
-          '<li>limit: max items returned (default 10)</li></br></p>',
       tags: ['api', 'speakers'],
       response: {
         schema: schemas.speakers,
@@ -74,6 +69,11 @@ routes = [
       reply(db.speakers.getById(request.params.id) || Boom.notFound());
     },
     config: {
+      validate: {
+        params: {
+          id: Joi.string().required().description('speaker id')
+        }
+      },
       description: 'get speaker by id',
       tags: ['api', 'speakers'],
       response: {
@@ -91,7 +91,12 @@ routes = [
       reply(db.speakers.replaceById(request.params.id, request.payload) || Boom.notFound());
     },
     config: {
-      validate: { payload: schemas.updateSpeaker },
+      validate: {
+        payload: schemas.updateSpeaker,
+        params: {
+          id: Joi.string().required().description('speaker id')
+        }
+      },
       description: 'update speaker',
       tags: ['api', 'speakers'],
       response: {
@@ -110,7 +115,12 @@ routes = [
       reply(db.speakers.updateById(request.params.id, request.payload) || Boom.notFound());
     },
     config: {
-      validate: { payload: schemas.speaker },
+      validate: {
+        payload: schemas.speaker,
+        params: {
+          id: Joi.string().required().description('speaker id')
+        }
+      },
       description: 'partial update speaker',
       tags: ['api', 'speakers'],
       response: {
@@ -133,6 +143,11 @@ routes = [
       }
     },
     config: {
+      validate: {
+        params: {
+          id: Joi.string().required().description('speaker id')
+        }
+      },
       description: 'delete speaker',
       tags: ['api', 'speakers'],
       response: {

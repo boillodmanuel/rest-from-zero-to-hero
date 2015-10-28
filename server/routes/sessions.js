@@ -11,22 +11,26 @@ routes = [
     handler: function (request, reply) {
       var offset = request.query.offset;
       var limit = request.query.limit;
-      var items = db.sessions.slice(offset, offset + limit);
-      reply(new Collection(items, offset, limit, db.sessions.size()));
+      var items = db.sessions;
+      if (request.query.hour) {
+        items = items.filter({ 'hour': request.query.hour });
+      }
+      if (request.query.category) {
+        items = items.filter({ 'type': request.query.category });
+      }
+      var itemsSection = items.slice(offset, offset + limit);
+      reply(new Collection(itemsSection, offset, limit, items.length || items.size()));
     },
     config: {
       validate: {
         query: {
-          offset: Joi.number().integer().min(0).max(100).default(0),
-          limit: Joi.number().integer().min(1).max(100).default(10)
+          offset: Joi.number().integer().min(0).max(100).default(0).description('pagination starting offset'),
+          limit: Joi.number().integer().min(1).max(100).default(10).description('max items returned'),
+          hour: Joi.string().regex(/^h[0-9]{2}$/).description('filter items by hour'),
+          category: Joi.string().description('filter items by category')
         }
       },
       description: 'list sessions',
-      notes: '<p>This method use pagination.</p>' +
-      '<p>Query parameters:' +
-      '<ul>' +
-      '<li>offset: offset used (default 0)</li>' +
-      '<li>limit: max items returned (default 10)</li></br></p>',
       tags: ['api', 'sessions'],
       response: {
         schema: schemas.sessions,
@@ -37,12 +41,23 @@ routes = [
       plugins: {
         hal: {
           api: 'sessions',
-          query: '{?offset,limit}',
+          query: '{?offset,limit,hour,category}',
           embedded: {
             sessions: {
               path: 'items',
-              href: './{item.id}'
+              href: './{item.id}',
+              embedded: {
+                speakers: {
+                  path: 'speakers',
+                  href: '/speakers/{item}'
+                }
+              }
             }
+          },
+          prepare: function (rep, next) {
+            rep.link('findByHour', '/sessions{?hour}');
+            rep.link('findByCategory', '/sessions{?category}');
+            next();
           }
         }
       }
@@ -74,6 +89,11 @@ routes = [
       reply(db.sessions.getById(request.params.id) || Boom.notFound());
     },
     config: {
+      validate: {
+        params: {
+          id: Joi.string().regex(/^s[0-9]+$/).required().description('session id')
+        }
+      },
       description: 'get session by id',
       tags: ['api', 'sessions'],
       response: {
@@ -105,7 +125,12 @@ routes = [
       reply(db.sessions.replaceById(request.params.id, request.payload) || Boom.notFound());
     },
     config: {
-      validate: { payload: schemas.updateSession },
+      validate: {
+        payload: schemas.updateSession,
+        params: {
+          id: Joi.string().regex(/^s[0-9]+$/).required().description('session id')
+        }
+      },
       description: 'update session',
       tags: ['api', 'sessions'],
       response: {
@@ -124,7 +149,12 @@ routes = [
       reply(db.sessions.updateById(request.params.id, request.payload) || Boom.notFound());
     },
     config: {
-      validate: { payload: schemas.session },
+      validate: {
+        payload: schemas.session,
+        params: {
+          id: Joi.string().regex(/^s[0-9]+$/).required().description('session id')
+        }
+      },
       description: 'partial update session',
       tags: ['api', 'sessions'],
       response: {
@@ -147,6 +177,11 @@ routes = [
       }
     },
     config: {
+      validate: {
+        params: {
+          id: Joi.string().regex(/^s[0-9]+$/).required().description('session id')
+        }
+      },
       description: 'delete session',
       tags: ['api', 'sessions'],
       response: {

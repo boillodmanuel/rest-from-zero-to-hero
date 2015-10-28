@@ -17,16 +17,11 @@ routes = [
     config: {
       validate: {
         query: {
-          offset: Joi.number().integer().min(0).max(100).default(0),
-          limit: Joi.number().integer().min(1).max(100).default(10)
+          offset: Joi.number().integer().min(0).max(100).default(0).description('pagination starting offset'),
+          limit: Joi.number().integer().min(1).max(100).default(10).description('max items returned')
         }
       },
       description: 'list categories',
-      notes: '<p>This method use pagination.</p>' +
-      '<p>Query parameters:' +
-      '<ul>' +
-      '<li>offset: offset used (default 0)</li>' +
-      '<li>limit: max items returned (default 10)</li></br></p>',
       tags: ['api', 'categories'],
       response: {
         schema: schemas.categories,
@@ -55,6 +50,11 @@ routes = [
       reply(db.categories.getById(request.params.id) || Boom.notFound());
     },
     config: {
+      validate: {
+        params: {
+          id: Joi.string().required().description('category id')
+        }
+      },
       description: 'get category by id',
       tags: ['api', 'categories'],
       response: {

@@ -1,4 +1,3 @@
-//helper: https://www.npmjs.com/package/joi-machine
 var Joi = require('Joi');
 
 var speaker =

@@ -48,16 +48,17 @@ server.register(
       register: require('hapi-swaggered'),
       options: {
         info: {
-          title: 'Devfest Nantes API',
-          description: 'Rest - From zero to hero',
+          title: 'REST - From zero to hero',
+          description: 'Devfest Nantes 2015',
           version: '1.0'
-        }
+        },
+        produces: [ 'application/json', 'application/hal+json' ]
       }
     },
     {
       register: require('hapi-swaggered-ui'),
       options: {
-        title: 'Example API',
+        title: 'Devfest Nantes API',
         path: '/docs'
       }
     },
