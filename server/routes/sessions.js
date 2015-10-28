@@ -1,5 +1,6 @@
 var Joi = require('Joi');
 var Boom = require('Boom');
+var _ = require('lodash');
 var db = require('../data/db.js');
 var Collection = require('../data/collection.js');
 var schemas = require('../data/schemas.js');
@@ -11,15 +12,15 @@ routes = [
     handler: function (request, reply) {
       var offset = request.query.offset;
       var limit = request.query.limit;
-      var items = db.sessions;
+      var items = db.sessions.map();
       if (request.query.hour) {
-        items = items.filter({ 'hour': request.query.hour });
+        items = _.filter(items, { 'hour': request.query.hour });
       }
       if (request.query.category) {
-        items = items.filter({ 'type': request.query.category });
+        items = _.filter(items, { 'type': request.query.category });
       }
       var itemsSection = items.slice(offset, offset + limit);
-      reply(new Collection(itemsSection, offset, limit, items.length || items.size()));
+      reply(new Collection(itemsSection, offset, limit, items.length));
     },
     config: {
       validate: {
