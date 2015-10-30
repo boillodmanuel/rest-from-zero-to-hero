@@ -24,8 +24,9 @@ routes = [
       description: 'list speakers',
       tags: ['api', 'speakers'],
       response: {
-        schema: schemas.speakers,
+        schema: schemas.error,
         status: {
+          200: schemas.speakers,
           400: schemas.validationError
         }
       },
@@ -55,8 +56,9 @@ routes = [
       description: 'add speakers',
       tags: ['api', 'speakers'],
       response: {
-        schema: schemas.speaker,
+        schema: schemas.error,
         status: {
+          201: schemas.speaker,
           400: schemas.validationError
         }
       }
@@ -77,8 +79,9 @@ routes = [
       description: 'get speaker by id',
       tags: ['api', 'speakers'],
       response: {
-        schema: schemas.speaker,
+        schema: schemas.error,
         status: {
+          200: schemas.speaker,
           404: schemas.error
         }
       }
@@ -100,15 +103,16 @@ routes = [
       description: 'update speaker',
       tags: ['api', 'speakers'],
       response: {
-        schema: schemas.speaker,
+        schema: schemas.error,
         status: {
+          200: schemas.speaker,
           400: schemas.validationError,
           404: schemas.error
         }
       }
     }
   },
-   {
+  {
     method: 'PATCH',
     path: '/speakers/{id}',
     handler: function (request, reply) {
@@ -124,8 +128,9 @@ routes = [
       description: 'partial update speaker',
       tags: ['api', 'speakers'],
       response: {
-        schema: schemas.speaker,
+        schema: schemas.error,
         status: {
+          200: schemas.speaker,
           400: schemas.validationError,
           404: schemas.error
         }
@@ -151,8 +156,16 @@ routes = [
       description: 'delete speaker',
       tags: ['api', 'speakers'],
       response: {
+        schema: schemas.error,
         status: {
           404: schemas.error
+        }
+      },
+      plugins: {
+        'hapi-swaggered': {
+          responses: {
+            204: {description: 'No Content'}
+          }
         }
       }
     }

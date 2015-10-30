@@ -24,8 +24,9 @@ routes = [
       description: 'list hours',
       tags: ['api', 'hours'],
       response: {
-        schema: schemas.hours,
+        schema: schemas.error,
         status: {
+          200: schemas.hours,
           400: schemas.validationError
         }
       },
@@ -58,8 +59,9 @@ routes = [
       description: 'get hour by id',
       tags: ['api', 'hours'],
       response: {
-        schema: schemas.hour,
+        schema: schemas.error,
         status: {
+          200: schemas.hour,
           404: schemas.error
         }
       }

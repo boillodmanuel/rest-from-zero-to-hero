@@ -24,8 +24,9 @@ routes = [
       description: 'list categories',
       tags: ['api', 'categories'],
       response: {
-        schema: schemas.categories,
+        schema: schemas.error,
         status: {
+          200: schemas.categories,
           400: schemas.validationError
         }
       },
@@ -58,8 +59,9 @@ routes = [
       description: 'get category by id',
       tags: ['api', 'categories'],
       response: {
-        schema: schemas.category,
+        schema: schemas.error,
         status: {
+          200: schemas.category,
           404: schemas.error
         }
       }

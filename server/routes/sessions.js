@@ -34,8 +34,9 @@ routes = [
       description: 'list sessions',
       tags: ['api', 'sessions'],
       response: {
-        schema: schemas.sessions,
+        schema: schemas.error,
         status: {
+          200: schemas.sessions,
           400: schemas.validationError
         }
       },
@@ -76,8 +77,9 @@ routes = [
       description: 'add sessions',
       tags: ['api', 'sessions'],
       response: {
-        schema: schemas.session,
+        schema: schemas.error,
         status: {
+          201: schemas.session,
           400: schemas.validationError
         }
       }
@@ -98,8 +100,9 @@ routes = [
       description: 'get session by id',
       tags: ['api', 'sessions'],
       response: {
-        schema: schemas.session,
+        schema: schemas.error,
         status: {
+          200: schemas.session,
           404: schemas.error
         }
       },
@@ -135,8 +138,9 @@ routes = [
       description: 'update session',
       tags: ['api', 'sessions'],
       response: {
-        schema: schemas.session,
+        schema: schemas.error,
         status: {
+          200: schemas.session,
           400: schemas.validationError,
           404: schemas.error
         }
@@ -159,8 +163,9 @@ routes = [
       description: 'partial update session',
       tags: ['api', 'sessions'],
       response: {
-        schema: schemas.session,
+        schema: schemas.error,
         status: {
+          200: schemas.session,
           400: schemas.validationError,
           404: schemas.error
         }
@@ -186,8 +191,16 @@ routes = [
       description: 'delete session',
       tags: ['api', 'sessions'],
       response: {
+        schema: schemas.error,
         status: {
           404: schemas.error
+        }
+      },
+      plugins: {
+        'hapi-swaggered': {
+          responses: {
+            204: {description: 'No Content'}
+          }
         }
       }
     }
