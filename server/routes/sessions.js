@@ -12,15 +12,16 @@ routes = [
     handler: function (request, reply) {
       var offset = request.query.offset;
       var limit = request.query.limit;
-      var items = db.sessions.map();
+      var query = db.sessions.chain();
       if (request.query.hour) {
-        items = _.filter(items, { 'hour': request.query.hour });
+        query = query.where({ 'hour': request.query.hour });
       }
       if (request.query.category) {
-        items = _.filter(items, { 'type': request.query.category });
+        query = query.where({ 'type': request.query.category });
       }
-      var itemsSection = items.slice(offset, offset + limit);
-      reply(new Collection(itemsSection, offset, limit, items.length));
+      var total = query.size().value();
+      var items = query.slice(offset, offset + limit).value();
+      reply(new Collection(items, offset, limit, total));
     },
     config: {
       validate: {
