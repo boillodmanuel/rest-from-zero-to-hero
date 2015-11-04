@@ -16,7 +16,7 @@
     "boom": "^2.10.0",
     "good": "^6.4.0",
     "good-console": "^5.1.0",
-    "halacious": "antoine-richard/halacious#a4ea91a",
+    "halacious": "antoine-richard/halacious#5c4a7a8",
     "hapi": "^10.5.0",
     "hapi-routes": "^1.0.4",
     "hapi-swaggered": "^2.4.1",
