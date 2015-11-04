@@ -34,7 +34,6 @@ routes = [
       },
       plugins: {
         hal: {
-          api: 'categories',
           query: '{?offset,limit}',
           embedded: {
             categories: {

@@ -68,7 +68,6 @@ routes = [
       },
       plugins: {
         hal: {
-          api: 'notes',
           query: '{?offset,limit,session}',
           embedded: {
             notes: {

@@ -34,7 +34,6 @@ routes = [
       },
       plugins: {
         hal: {
-          api: 'hours',
           query: '{?offset,limit}',
           embedded: {
             hours: {
