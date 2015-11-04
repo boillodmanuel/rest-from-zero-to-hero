@@ -12,7 +12,8 @@ routes = [
       var offset = request.query.offset;
       var limit = request.query.limit;
       var items = db.categories.chain().sortBy('id').slice(offset, offset + limit).value();
-      reply(new Collection(items, offset, limit, db.categories.size()));
+      var collection = new Collection(items, offset, limit, db.categories.size());
+      reply(collection).code(collection.isPartial() ? 206 : 200);
     },
     config: {
       validate: {
@@ -27,6 +28,7 @@ routes = [
         schema: schemas.error,
         status: {
           200: schemas.categories,
+          206: schemas.categories,
           400: schemas.validationError
         }
       },

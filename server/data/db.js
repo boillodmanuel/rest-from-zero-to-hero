@@ -9,5 +9,6 @@ exports = module.exports = {
   speakers: db('speakers'),
   sessions: db('sessions'),
   categories: db('categories'),
-  hours: db('hours')
+  hours: db('hours'),
+  notes: db('notes')
 };

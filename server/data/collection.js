@@ -9,6 +9,11 @@ function Collection(items, offset, limit, total) {
     this.total = total;
 }
 
+Collection.prototype.isPartial = function() {
+    return this.size < this.total;
+};
+
+
 Collection.prototype.toHal = function(rep, done) {
     var uri = new URI(rep.self);
     var prev = Math.max(0, this.offset - this.limit);

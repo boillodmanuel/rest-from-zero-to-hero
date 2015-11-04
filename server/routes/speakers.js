@@ -12,7 +12,8 @@ routes = [
       var offset = request.query.offset;
       var limit = request.query.limit;
       var items = db.speakers.slice(offset, offset + limit);
-      reply(new Collection(items, offset, limit, db.speakers.size()));
+      var collection = new Collection(items, offset, limit, db.speakers.size());
+      reply(collection).code(collection.isPartial() ? 206 : 200);
     },
     config: {
       validate: {
@@ -27,6 +28,7 @@ routes = [
         schema: schemas.error,
         status: {
           200: schemas.speakers,
+          206: schemas.speakers,
           400: schemas.validationError
         }
       },
@@ -49,7 +51,7 @@ routes = [
     path: '/speakers',
     handler: function (request, reply) {
       var speaker = db.speakers.insert(request.payload);
-      reply(speaker).code(201);
+      reply(speaker).code(201).header('Location', '/speakers/' + speaker.id);
     },
     config: {
       validate: {payload: schemas.createSpeaker},
@@ -158,6 +160,7 @@ routes = [
       response: {
         schema: schemas.error,
         status: {
+          204: schemas.noContent,
           404: schemas.error
         }
       },

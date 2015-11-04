@@ -44,6 +44,24 @@ var session =
 var updateSession = session.requiredKeys('title').meta({className: 'session_update'});
 var createSession = updateSession.requiredKeys('id').meta({className: 'session_create'});
 
+var note = Joi.object().keys({
+  id: Joi.string(),
+  session: Joi.string().regex(/^s[0-9]+$/).required(),
+  value: Joi.number().integer().min(0).max(5).required()
+}).meta({className: 'note'});
+
+var sessionNote = Joi.object().keys({
+  value: Joi.number().integer().min(0).max(5).required()
+}).meta({className: 'note'});
+
+var noteStat = Joi.object().keys({
+  avg: Joi.number(),
+  count: Joi.number().integer(),
+  max: Joi.number().integer(),
+  min: Joi.number().integer(),
+  session: Joi.string()
+});
+
 var hour = Joi.object().keys({
   hourEnd: Joi.string(),
   hourStart: Joi.string(),
@@ -56,6 +74,8 @@ var category = Joi.object().keys({
   id: Joi.string(),
   title: Joi.string()
 }).meta({className: 'category'});
+
+var noContent = Joi.any();
 
 var error =
     Joi.object().keys({
@@ -94,11 +114,17 @@ exports = module.exports = {
   updateSession: updateSession,
   createSession: createSession,
   sessions: paginate(session, 'sessions'),
+  sessionNote: sessionNote,
+  note: note,
+  notes: paginate(note, 'notes'),
+  noteStat: noteStat,
+  noteStats: paginate(noteStat, 'noteStats'),
   hour: hour,
   hours: paginate(hour, 'hours'),
   category: category,
   categories: paginate(category, 'categories'),
   //error models
+  noContent: noContent,
   error: error,
   validationError: validationError
 };

@@ -21,7 +21,8 @@ routes = [
       }
       var total = query.size().value();
       var items = query.slice(offset, offset + limit).value();
-      reply(new Collection(items, offset, limit, total));
+      var collection = new Collection(items, offset, limit, total);
+      reply(collection).code(collection.isPartial() ? 206 : 200);
     },
     config: {
       validate: {
@@ -38,6 +39,7 @@ routes = [
         schema: schemas.error,
         status: {
           200: schemas.sessions,
+          206: schemas.sessions,
           400: schemas.validationError
         }
       },
@@ -71,7 +73,7 @@ routes = [
     path: '/sessions',
     handler: function (request, reply) {
       var session = db.sessions.insert(request.payload);
-      reply(session).code(201);
+      reply(session).code(201).header('Location', '/sessions/' + session.id);
     },
     config: {
       validate: {payload: schemas.createSession},
@@ -194,6 +196,7 @@ routes = [
       response: {
         schema: schemas.error,
         status: {
+          204: schemas.noContent,
           404: schemas.error
         }
       },
