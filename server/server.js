@@ -1,4 +1,6 @@
 var Hapi = require('hapi');
+var Boom = require('Boom');
+var Negotiator = require('negotiator');
 var Path = require('path');
 var Assets = require('./assets');
 
@@ -21,6 +23,14 @@ server.connection({
         abortEarly: false
       }
     }
+  }
+});
+
+server.ext({
+  type: 'onRequest',
+  method: function (request, reply) {
+    var matches = new Negotiator(request).mediaType(["application/json", "application/hal+json"]);
+    return matches ? reply.continue() : reply(Boom.notAcceptable());
   }
 });
 

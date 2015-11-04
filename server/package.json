@@ -28,6 +28,7 @@
     "lodash": "^3.10.1",
     "lowdb": "^0.10.2",
     "moment": "^2.10.6",
+    "negotiator": "^0.6.0",
     "topo": "^1.1.0",
     "underscore-db": "^0.9.1",
     "urijs": "^1.16.1",
